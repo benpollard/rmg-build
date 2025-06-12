@@ -7,10 +7,12 @@
     entrypoint: pack
     args:
     - build
-    - europe-west1-docker.pkg.dev/rmg-cloudbuild/images/hello-rmg:SHORT_SHA
+    - europe-west1-docker.pkg.dev/rmg-cloudbuild/images/hello-rmg:${_SHORT_SHA}
     - --builder
     - gcr.io/buildpacks/builder:latest
     - --network
     - cloudbuild
   images:
-  - europe-west1-docker.pkg.dev/rmg-cloudbuild/images/hello-rmg:SHORT_SHA
+  - europe-west1-docker.pkg.dev/rmg-cloudbuild/images/hello-rmg:${_SHORT_SHA}
+  substitutions: #
+  _SHORT_SHA: ${SHORT_SHA}
