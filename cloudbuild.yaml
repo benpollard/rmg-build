@@ -1,6 +1,16 @@
-steps:
-- name: 'gcr.io/cloud-builders/docker'
-  id: 'Build with Buildpacks'
-  args: ['build', '--tag', 'europe-west1-docker.pkg.dev/rmg-cloudbuild/images/hello-rmg:${SHORT_SHA}', '.']
 options:
   logging: CLOUD_LOGGING_ONLY
+    pool: {}
+projectId: rmg-cloudbuild
+steps:
+- name: gcr.io/k8s-skaffold/pack
+  entrypoint: pack
+  args:
+  - build
+  - europe-west1-docker.pkg.dev/rmg-cloudbuild/images/hello-rmg
+  - --builder
+  - gcr.io/buildpacks/builder:latest
+  - --network
+  - cloudbuild
+images:
+- europe-west1-docker.pkg.dev/rmg-cloudbuild/images/hello-rmg
