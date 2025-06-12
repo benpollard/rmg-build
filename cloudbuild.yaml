@@ -9,7 +9,7 @@
     - build
     - europe-west1-docker.pkg.dev/rmg-cloudbuild/images/hello-rmg
     - --builder
-    - gcr.io/buildpacks/builder:latest
+    - gcr.io/buildpacks/builder:$SHORT_SHA
     - --network
     - cloudbuild
   images:
