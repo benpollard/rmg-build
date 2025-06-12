@@ -14,5 +14,5 @@
     - cloudbuild
   images:
   - europe-west1-docker.pkg.dev/rmg-cloudbuild/images/hello-rmg:${_SHORT_SHA}
-  substitutions: #
-  _SHORT_SHA: ${SHORT_SHA}
+  substitutions:
+    _SHORT_SHA: ${SHORT_SHA}
