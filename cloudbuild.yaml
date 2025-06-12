@@ -12,7 +12,7 @@
     - gcr.io/buildpacks/builder:latest
     - --network
     - cloudbuild
-  - name: gcr.io/google.com/cloudsdk/cloud-sdk
+  - name: gcr.io/google.com/cloudsdktool/google-cloud-cli
     entrypoint: gcloud
     args:
     - deploy
