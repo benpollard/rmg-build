@@ -1,0 +1,8 @@
+# targets.yaml
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: prod-cloudrun
+description: Cloud Run target for production
+run:
+  location: projects/rmg-cloudbuild/locations/europe-west1

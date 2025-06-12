@@ -12,6 +12,19 @@
     - gcr.io/buildpacks/builder:latest
     - --network
     - cloudbuild
+  - name: gcr.io/google.com/cloudsdk/cloud-sdk
+    entrypoint: gcloud
+    args:
+    - deploy
+    - releases
+    - create
+    - hello-rmg-release-${_SHORT_SHA} # Unique name for your release
+    - --delivery-pipeline=hello-rmg-pipeline
+    - --region=europe-west1 # Region where your Cloud Deploy pipeline is located
+    - --skaffold-file=skaffold.yaml # Path to your skaffold.yaml
+    - --images=hello-rmg=europe-west1-docker.pkg.dev/rmg-cloudbuild/images/hello-rmg:${_SHORT_SHA} # Maps image to substitution
+    # If you have custom parameters in skaffold.yaml you can pass them like this:
+    # - '--skaffold-file-parameters=image=europe-west1-docker.pkg.dev/rmg-cloudbuild/images/hello-rmg:${_SHORT_SHA}'
   images:
   - europe-west1-docker.pkg.dev/rmg-cloudbuild/images/hello-rmg:${_SHORT_SHA}
   substitutions:

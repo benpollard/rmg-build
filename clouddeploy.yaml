@@ -1,0 +1,16 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: hello-rmg-pipeline # A unique name for your pipeline
+description: "Delivery pipeline for hello-rmg Cloud Run service"
+serialPipeline:
+  stages:
+  - targetId: prod-cloudrun # Second stage: Production environment
+    strategy:
+      canary:
+        runtimeConfig:
+            cloudRun:
+              automaticTrafficControl: true
+        canaryDeployment:
+          percentages: [10,50]
+          verify: true

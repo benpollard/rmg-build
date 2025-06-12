@@ -1,0 +1,33 @@
+# skaffold.yaml
+apiVersion: skaffold.dev/v2beta27
+kind: Config
+deploy:
+  cloudrun: {}
+manifests:
+  raw:
+    - # You'll define your Cloud Run service configuration here
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      metadata:
+        name: hello-rmg # Name for your Cloud Run service
+        annotations:
+          run.googleapis.com/ingress: "all" # Or "internal-and-external" if preferred
+          run.googleapis.com/client-name: "cloud-build"
+      spec:
+        template:
+          metadata:
+            annotations:
+              autoscaling.knative.dev/minScale: "0"
+              autoscaling.knative.dev/maxScale: "10" # Adjust as needed
+          spec:
+            containers:
+              - image: europe-west1-docker.pkg.dev/rmg-cloudbuild/images/hello-rmg:${_SHORT_SHA} # This will be substituted by Cloud Build
+                ports:
+                  - containerPort: 8080 # Or the port your application listens on
+                resources:
+                  limits:
+                    cpu: 1000m
+                    memory: 512Mi
+        traffic:
+          - percent: 100
+            latestRevision: true
