@@ -1,0 +1,6 @@
+steps:
+# Step 1: Build the Go application into a container image using Buildpacks
+# Using the built-in $SHORT_SHA for the image tag and as a build-arg
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Build with Buildpacks'
+  args: ['build', '--tag', 'europe-west1-docker.pkg.dev/rmg-cloudbuild/images/hello-rmg:${SHORT_SHA}', '.']
